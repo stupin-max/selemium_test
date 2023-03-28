@@ -13,11 +13,8 @@ class Base:
         all_id = self.driver.window_handles
         return self.driver.switch_to.window(all_id[1])
 
-
-class BasePage(Base):
-    def __init__(self, driver):
-        self.driver = driver
-        self.base_url = "https://ya.ru/"
+    def check_if_dlisplayed(self, locator):
+        return locator.is_displayed()
 
     def find_element(self, locator,time=30):
         return WebDriverWait(self.driver,time).until(EC.presence_of_element_located(locator),
@@ -27,12 +24,18 @@ class BasePage(Base):
         return WebDriverWait(self.driver,time).until(EC.presence_of_all_elements_located(locator),
                                                       message=f"Can't find elements by locator {locator}")
 
+    def move_to_element(self, locator):
+        action = ActionChains(self.driver)
+        return action.move_to_element(locator).click(locator).perform()
+
+
+class BasePage(Base):
+    def __init__(self, driver):
+        self.driver = driver
+        self.base_url = "https://ya.ru/"
+
 
 class ImagePage(Base):
     def __init__(self, driver):
         self.driver = driver
         self.base_url = "https://yandex.ru/images/"
-
-    def move_to_element(self, locator):
-        action = ActionChains(self.driver)
-        return action.move_to_element(locator).click(locator).perform()

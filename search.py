@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 class YandexSeacrhLocators:
     LOCATOR_YANDEX_SEARCH_FIELD = (By.ID, "text")
-    LOCATOR_YANDEX_SEARCH_BUTTON = (By.XPATH, "//*/button[text()='Найти']") #NEED TO CHANGE. RU TEXT is not correct
+    LOCATOR_YANDEX_SEARCH_BUTTON = (By.XPATH, "//*/button[@type='submit']") #CHANGED
     LOCATOR_YANDEX_SUGGEST = (By.XPATH, "//*[@role='listbox']")
     LOCATOR_YANDEX_MENU = (By.CLASS_NAME, "services-suggest__list-item-more")
     LOCATOR_YANDEX_IMAGE_BUTTON = (By.XPATH, "//*/div[@data-id='images']/parent::span")
