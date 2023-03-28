@@ -32,7 +32,7 @@ def test_yandex_pictures(browser):
 
     yandex_image_page = Images(browser)
     impages_page_url = str(yandex_image_page.get_current_url())
-    assert impages_page_url == 'https://yandex.ru/images/'
+    assert impages_page_url == 'https://yandex.ru/images/', "Current link not equal to https://yandex.ru/images"
 
     first_block_name = yandex_image_page.first_result()
     yandex_image_page.go_to_first_images_block()
