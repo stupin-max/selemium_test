@@ -2,8 +2,19 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 
-class BasePage:
+class Base:
+    def go_to_site(self):
+        return self.driver.get(self.base_url)
 
+    def get_url(self):
+        return self.driver.current_url
+
+    def switch_to_new_tab(self):
+        all_id = self.driver.window_handles
+        return self.driver.switch_to.window(all_id[1])
+
+
+class BasePage(Base):
     def __init__(self, driver):
         self.driver = driver
         self.base_url = "https://ya.ru/"
@@ -16,17 +27,8 @@ class BasePage:
         return WebDriverWait(self.driver,time).until(EC.presence_of_all_elements_located(locator),
                                                       message=f"Can't find elements by locator {locator}")
 
-    def go_to_site(self):
-        return self.driver.get(self.base_url)
 
-    def get_url(self):
-        return self.driver.current_url
-
-    def switch_to_new_tab(self):
-        all_id = self.driver.window_handles
-        return self.driver.switch_to.window(all_id[1])
-
-class ImagePage(BasePage):
+class ImagePage(Base):
     def __init__(self, driver):
         self.driver = driver
         self.base_url = "https://yandex.ru/images/"
