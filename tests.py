@@ -1,6 +1,5 @@
 from search import Search, Images
 # import pytest_check as check
-import time
 
 def test_tensor_search(browser):
     yandex_main_page = Search(browser)
