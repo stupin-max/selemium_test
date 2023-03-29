@@ -1,31 +1,34 @@
 from search import Search, Images
-# import pytest_check as check
+import pytest_check as check
 
 def test_tensor_search(browser):
     yandex_main_page = Search(browser)
     yandex_main_page.go_to_site()
     search_field_test = yandex_main_page.search_field()
     assert search_field_test is not None, "Search field is not found"
+
     yandex_main_page.enter_word("Тензор")
     suggest_field = yandex_main_page.suggest_field()
     assert suggest_field is not None, "Suggests are not found"
+
     yandex_main_page.press_enter()
     result_page = yandex_main_page.result_block()
     assert result_page is not None, "Results are not found"
+
     first_result = yandex_main_page.first_result()
     assert first_result != 'http://tensor.ru/', "First link not equal to http://tensor.ru/"
 
 def test_yandex_pictures(browser):
     yandex_main_page = Search(browser)
     yandex_main_page.go_to_site()
-    menu = yandex_main_page.menu_find()
-    #_____________NEED_TO_CHECK
-    assert menu is not None, 'Menu not found' # need to add soft asser from check
-    yandex_main_page.click_to_search_field() #menu is availible after click to search only
-    assert menu is not None
-    #_____________NEED_TO_CHECK
-    yandex_main_page.click_to_menu_field()
+    menu = yandex_main_page.menu_is_visible()
+    check.is_true(menu) is True  #FAILED as menu is available after click to search button only
 
+    yandex_main_page.click_to_search_field()
+    menu = yandex_main_page.menu_is_visible()
+    assert menu is True, 'Menu not visible'
+
+    yandex_main_page.click_to_menu_field()
     yandex_main_page.go_to_pictures()
     yandex_main_page.switch_to_pictures_tab()
 
