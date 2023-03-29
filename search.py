@@ -21,20 +21,20 @@ class YandexImagesLocators:
     LOCATOR_YANDEX_PREV_IMAGE = (By.CSS_SELECTOR, "div.MediaViewer-ButtonPrev")
     LOCATOR_YANDEX_IMAGE_SCR = (By.CSS_SELECTOR, "img.MMImage-Origin")
 
-class Search(BasePage):
-    def search_field(self):
+class GeneralFunc:
+    def general_search_field(self, locator):
         try:
-            search_field = self.find_element(YandexSeacrhLocators.LOCATOR_YANDEX_SEARCH_FIELD)
+            search_field = self.find_element(locator)
         except:
             search_field = None
         return search_field
 
+class Search(GeneralFunc, BasePage):
+    def search_field(self):
+        return self.general_search_field(YandexSeacrhLocators.LOCATOR_YANDEX_SEARCH_FIELD)
+
     def suggest_field(self):
-        try:
-            suggest_field = self.find_element(YandexSeacrhLocators.LOCATOR_YANDEX_SUGGEST)
-        except:
-            suggest_field = None
-        return suggest_field
+        return self.general_search_field(YandexSeacrhLocators.LOCATOR_YANDEX_SUGGEST)
 
     def enter_word(self, word):
         search_field = self.search_field()
@@ -46,11 +46,7 @@ class Search(BasePage):
         return self.find_element(YandexSeacrhLocators.LOCATOR_YANDEX_SEARCH_FIELD).send_keys(Keys.ENTER)
 
     def result_block(self):
-        try:
-            result_block = self.find_element(YandexResultLocators.LOCATOR_YANDEX_RESULTS_BLOCK)
-        except:
-            result_block = None
-        return result_block
+        return self.general_search_field(YandexResultLocators.LOCATOR_YANDEX_RESULTS_BLOCK)
 
     def first_result(self):
         try:
@@ -67,22 +63,14 @@ class Search(BasePage):
         search_field.click()
 
     def menu_find(self):
-        try:
-            menu = self.find_element(YandexSeacrhLocators.LOCATOR_YANDEX_MENU)
-        except:
-            menu = None
-        return menu
+        return self.general_search_field(YandexSeacrhLocators.LOCATOR_YANDEX_MENU)
 
     def click_to_menu_field(self):
         menu_field = self.menu_find()
         menu_field.click()
 
     def pictures_button(self):
-        try:
-            pictures_button = self.find_element(YandexSeacrhLocators.LOCATOR_YANDEX_IMAGE_BUTTON)
-        except:
-            pictures_button = None
-        return pictures_button
+        return self.general_search_field(YandexSeacrhLocators.LOCATOR_YANDEX_IMAGE_BUTTON)
 
     def go_to_pictures(self):
         pictures_button = self.pictures_button()
@@ -97,11 +85,7 @@ class Search(BasePage):
 
 class Images(ImagePage, Search):
     def first_image_block(self):
-        try:
-            first_image_block = self.find_element(YandexImagesLocators.LOCATOR_YANDEX_IMAGE_FIRST)
-        except:
-            first_image_block = None
-        return first_image_block
+        return self.general_search_field(YandexImagesLocators.LOCATOR_YANDEX_IMAGE_FIRST)
 
     def first_result(self):
         try:
@@ -122,33 +106,21 @@ class Images(ImagePage, Search):
         return value
 
     def first_picture(self):
-        try:
-            first_pictures = self.find_element(YandexImagesLocators.LOCATOR_YANDEX_IMAGE_FIRST_PIC)
-        except:
-            first_pictures = None
-        return first_pictures
+        return self.general_search_field(YandexImagesLocators.LOCATOR_YANDEX_IMAGE_FIRST_PIC)
 
     def go_to_first_picture(self):
         first_picture = self.first_picture()
         return first_picture.click()
 
     def next_image(self):
-        try:
-            next_image = self.find_element(YandexImagesLocators.LOCATOR_YANDEX_NEXT_IMAGE)
-        except:
-            next_image = None
-        return next_image
+        return self.general_search_field(YandexImagesLocators.LOCATOR_YANDEX_NEXT_IMAGE)
 
     def go_to_next_picture(self):
         next_picture = self.next_image()
         return next_picture.click()
 
     def prev_image(self):
-        try:
-            prev_image = self.find_element(YandexImagesLocators.LOCATOR_YANDEX_PREV_IMAGE)
-        except:
-            prev_image = None
-        return prev_image
+        return self.general_search_field(YandexImagesLocators.LOCATOR_YANDEX_PREV_IMAGE)
 
     def go_to_prev_picture(self):
         prev_image = self.prev_image()
