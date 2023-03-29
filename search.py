@@ -29,6 +29,10 @@ class GeneralFunc:
             search_field = None
         return search_field
 
+    def get_current_url(self):
+        return self.get_url()
+
+
 class Search(GeneralFunc, BasePage):
     def search_field(self):
         return self.general_search_field(YandexSeacrhLocators.LOCATOR_YANDEX_SEARCH_FIELD)
@@ -55,9 +59,6 @@ class Search(GeneralFunc, BasePage):
             first_result = None
         return str(first_result)
 
-    def get_current_url(self):
-        return self.get_url()
-
     def click_to_search_field(self):
         search_field = self.search_field()
         search_field.click()
@@ -83,7 +84,7 @@ class Search(GeneralFunc, BasePage):
     def switch_to_pictures_tab(self):
         return self.switch_to_new_tab()
 
-class Images(ImagePage, Search):
+class Images(GeneralFunc, ImagePage):
     def first_image_block(self):
         return self.general_search_field(YandexImagesLocators.LOCATOR_YANDEX_IMAGE_FIRST)
 
